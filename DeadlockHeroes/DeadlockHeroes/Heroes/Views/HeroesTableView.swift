@@ -52,8 +52,8 @@ extension HeroesTableView: UITableViewDelegate, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "heroCell") as! HeroCell
         
         let hero = heroes[indexPath.row]
-        cell.viewModel = HeroesImageViewModel()
         cell.tag = hero.id!
+        cell.viewModel = HeroesImageViewModel()
         cell.set(with: hero)
         
         return cell

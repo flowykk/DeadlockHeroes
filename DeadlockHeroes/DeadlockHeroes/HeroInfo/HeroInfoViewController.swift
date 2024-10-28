@@ -16,6 +16,7 @@ final class HeroInfoViewController: UIViewController {
     private let scrollView: UIScrollView = UIScrollView()
     private let contentView: UIView = UIView()
     
+    private let activityIndicator = UIActivityIndicatorView()
     private let heroImageView = UIImageView()
     private let heroNameLabel = UILabel()
     private let heroRoleLabel = UILabel()
@@ -45,8 +46,10 @@ final class HeroInfoViewController: UIViewController {
     
     var imageViewModel: HeroesImageViewModelDelegate? {
         didSet {
+            activityIndicator.startAnimating()
             imageViewModel?.didFetchedHeroImage = { [weak self] image in
                 DispatchQueue.main.async {
+                    self?.activityIndicator.stopAnimating()
                     self?.heroImageView.image = image
                 }
             }
@@ -75,6 +78,7 @@ extension HeroInfoViewController {
         
         configureBackButton()
         
+        configureActivityIndicator()
         configureHeroImageView()
         configureHeroNameLabel()
         configureHeroRoleLabel()
@@ -124,6 +128,16 @@ extension HeroInfoViewController {
             make.edges.equalToSuperview()
             make.height.equalTo(expectedHeight)
             make.width.equalToSuperview()
+        }
+    }
+    
+    private func configureActivityIndicator() {
+        contentView.addSubview(activityIndicator)
+        activityIndicator.snp.makeConstraints { make in
+            make.left.equalTo(contentView).offset(20)
+            make.top.equalTo(contentView).offset(10)
+            make.height.equalTo(150)
+            make.width.equalTo(110)
         }
     }
     

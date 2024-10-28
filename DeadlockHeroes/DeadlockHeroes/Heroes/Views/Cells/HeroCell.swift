@@ -9,20 +9,22 @@ import UIKit
 
 class HeroCell: UITableViewCell {
     
+    private let activityIndicator = UIActivityIndicatorView()
     private let heroImageView = UIImageView()
     private let heroNameLabel = UILabel()
     private let chevronImageView = UIImageView()
     
     var viewModel: HeroesImageViewModelDelegate? {
         didSet {
+            activityIndicator.startAnimating()
             viewModel?.didFetchedHeroImage = { [weak self] image in
                 DispatchQueue.main.async {
+                    self?.activityIndicator.stopAnimating()
                     self?.heroImageView.image = image
                 }
             }
         }
     }
-
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -36,9 +38,8 @@ class HeroCell: UITableViewCell {
     func set(with hero: Hero) {
         heroNameLabel.text = hero.name
 
-        if tag == hero.id! {
-            viewModel?.fetchHeroImage(for: hero.images?.iconHeroCard ?? "")
-        }
+        guard tag == hero.id! else { return }
+        viewModel?.fetchHeroImage(for: hero.images?.iconHeroCard ?? "")
     }
 }
 
@@ -46,13 +47,26 @@ extension HeroCell {
     
     private func configureUI() {
         configureSelf()
+        
+        configureActivityIndicator()
         configureHeroImageView()
+        
         configureHeroNameLabel()
         configureChevronImageView()
     }
     
     private func configureSelf() {
         selectionStyle = .none
+    }
+    
+    private func configureActivityIndicator() {
+        addSubview(activityIndicator)
+        activityIndicator.snp.makeConstraints { make in
+            make.width.equalTo(90)
+            make.height.equalTo(90)
+            make.left.equalTo(self).offset(20)
+            make.centerY.equalTo(self)
+        }
     }
     
     private func configureHeroImageView() {

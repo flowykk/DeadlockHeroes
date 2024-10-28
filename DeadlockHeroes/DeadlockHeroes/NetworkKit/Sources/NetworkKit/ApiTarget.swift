@@ -25,11 +25,9 @@ extension API: TargetType {
     public var baseURL: URL {
         switch self {
         case .getHeroes:
-            guard let url = URL(string: "https://assets.deadlock-api.com") else { fatalError() }
-            return url
+            return URL(string: "https://assets.deadlock-api.com")!
         case .getHeroImage(let image):
-            guard let url = URL(string: image) else { fatalError() }
-            return url
+            return URL(string: image) ?? URL(string: "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png")!
         }
     }
     
