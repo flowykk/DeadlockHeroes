@@ -71,8 +71,8 @@ extension HeroCell {
     
     private func configureHeroNameLabel() {
         heroNameLabel.textAlignment = .center
-        heroNameLabel.textColor = .black
-        heroNameLabel.font = .systemFont(ofSize: 20, weight: .medium)
+        heroNameLabel.textColor = Colors.textColor
+        heroNameLabel.font = .systemFont(ofSize: 22, weight: .medium)
         
         addSubview(heroNameLabel)
         heroNameLabel.snp.makeConstraints { make in
@@ -90,7 +90,7 @@ extension HeroCell {
         let configuration = UIImage.SymbolConfiguration(font: font)
         let image = UIImage(systemName: "chevron.right", withConfiguration: configuration)
         chevronImageView.image = image
-        chevronImageView.tintColor = .systemGray
+        chevronImageView.tintColor = Colors.accentColor
         
         chevronImageView.snp.makeConstraints { make in
             make.right.equalTo(self).offset(-1 * 20)

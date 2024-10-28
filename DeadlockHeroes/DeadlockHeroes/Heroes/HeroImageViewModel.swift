@@ -19,7 +19,7 @@ protocol HeroesImageViewModelDelegate {
 final class HeroesImageViewModel: HeroesImageViewModelDelegate {
     var image: UIImage? {
         didSet {
-            didFetchedHeroImage?(image ?? UIImage(named: "mama")!)
+            didFetchedHeroImage?(image ?? UIImage(named: "placeholder")!)
         }
     }
     

@@ -49,7 +49,7 @@ extension HeroSubInfoView {
     
     private func configureSectionLabel() {
         sectionLabel.font = .systemFont(ofSize: .init(25), weight: .bold)
-        sectionLabel.textColor = .systemPink
+        sectionLabel.textColor = Colors.accentColor
         
         addSubview(sectionLabel)
         sectionLabel.snp.makeConstraints { make in
@@ -61,6 +61,7 @@ extension HeroSubInfoView {
     private func configureInfoLabel() {
         infoLabel.font = .systemFont(ofSize: .init(16), weight: .medium)
         infoLabel.numberOfLines = 0
+        infoLabel.textColor = Colors.textColor
         
         addSubview(infoLabel)
         infoLabel.snp.makeConstraints { make in

@@ -96,7 +96,7 @@ extension HeroInfoViewController {
             style: .plain,
             target: self,
             action: #selector(backButtonTapped))
-        //navigationItem.leftBarButtonItem?.tintColor = Colors.labelsColor
+        navigationItem.leftBarButtonItem?.tintColor = Colors.accentColor
     }
     
     private func configureScrollView() {
@@ -146,6 +146,7 @@ extension HeroInfoViewController {
         heroNameLabel.font = .systemFont(ofSize: .init(30), weight: .bold)
         heroNameLabel.numberOfLines = 1
         heroNameLabel.textAlignment = .center
+        heroNameLabel.textColor = Colors.textColor
         
         contentView.addSubview(heroNameLabel)
         heroNameLabel.snp.makeConstraints { make in
