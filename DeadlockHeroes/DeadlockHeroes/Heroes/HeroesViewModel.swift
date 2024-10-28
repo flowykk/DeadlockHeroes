@@ -10,13 +10,17 @@ import NetworkKit
 import UIKit
 
 protocol HeroesViewModelDelegate {
+    var router: HeroesRouterProtocol? { get set }
     var heroes: [Hero] { get set }
     var didFetchedHeroes: (([Hero]) -> Void)? { get set }
     
     func fetchHeroes()
+    func heroDidTapped(for index: Int)
 }
 
 final class HeroesViewModel: HeroesViewModelDelegate {
+    
+    var router: HeroesRouterProtocol?
     
     var heroes = [Hero]() {
         didSet {
@@ -34,5 +38,9 @@ final class HeroesViewModel: HeroesViewModelDelegate {
                 print(error)
             }
         }
+    }
+    
+    func heroDidTapped(for index: Int) {
+        router?.navigateToHeroInfo(with: heroes[index])
     }
 }

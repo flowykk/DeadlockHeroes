@@ -21,6 +21,18 @@ struct Hero: Codable {
         case name, description
         case images
     }
+    
+    static var testHero = Hero(
+        id: 1,
+        className: "Sniper",
+        name: "Soldier: 76",
+        description: Description(
+            lore: "Like most teenagers; Infernus was wild, rebellious, and impetuous.  Unlike most teenagers, Infernus was a creature from another plane and had a supernatural mastery over fire.  Needless to say:  his youth was filled with no small amount of arson, murder, and evidence disposal.  But that was then.  Now an adult, Infernus has mellowed out considerably.  He’s happy working at a bar with good live music, and talking to interesting people.  That being said when someone at the bar gets belligerent or violent, he’s not afraid to dust off the skills he once honed.",
+            role: "Lights up enemies and watches them burn",
+            playstyle: "Infernus has many ways to deal damage over time, burning foes before swooping in for the kill. Due to Infernus' blazing speed, his enemies won't be able to escape the flames."
+        ),
+        images: nil
+    )
 }
 
 // MARK: - Description

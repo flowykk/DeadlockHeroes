@@ -58,4 +58,8 @@ extension HeroesTableView: UITableViewDelegate, UITableViewDataSource {
         
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        viewModel?.heroDidTapped(for: indexPath.row)
+    }
 }

@@ -20,6 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: windowScene)
         
         let view = HeroesBuilder.build()
+        //let view = HeroInfoBuilder.build(with: Hero.testHero)
         window.rootViewController = UINavigationController(rootViewController: view)
         
         self.window = window
