@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0D5A5A4C2CCEAD83000153CB /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 0D5A5A4B2CCEAD83000153CB /* SnapKit */; };
 		0D5A5A542CCEADC8000153CB /* NetworkKit in Frameworks */ = {isa = PBXBuildFile; productRef = 0D5A5A532CCEADC8000153CB /* NetworkKit */; };
+		0D65816E2CCFE43B00198941 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 0D65816D2CCFE43B00198941 /* Moya */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 			files = (
 				0D5A5A542CCEADC8000153CB /* NetworkKit in Frameworks */,
 				0D5A5A4C2CCEAD83000153CB /* SnapKit in Frameworks */,
+				0D65816E2CCFE43B00198941 /* Moya in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -96,6 +98,7 @@
 			packageProductDependencies = (
 				0D5A5A4B2CCEAD83000153CB /* SnapKit */,
 				0D5A5A532CCEADC8000153CB /* NetworkKit */,
+				0D65816D2CCFE43B00198941 /* Moya */,
 			);
 			productName = DeadlockHeroes;
 			productReference = 0D5A5A132CCEACCF000153CB /* DeadlockHeroes.app */;
@@ -127,6 +130,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				0D5A5A4A2CCEAD83000153CB /* XCRemoteSwiftPackageReference "SnapKit" */,
+				0D65816C2CCFE43B00198941 /* XCRemoteSwiftPackageReference "Moya" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 0D5A5A142CCEACCF000153CB /* Products */;
@@ -364,6 +368,14 @@
 				minimumVersion = 5.7.1;
 			};
 		};
+		0D65816C2CCFE43B00198941 /* XCRemoteSwiftPackageReference "Moya" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Moya/Moya";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 15.0.3;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -375,6 +387,11 @@
 		0D5A5A532CCEADC8000153CB /* NetworkKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = NetworkKit;
+		};
+		0D65816D2CCFE43B00198941 /* Moya */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0D65816C2CCFE43B00198941 /* XCRemoteSwiftPackageReference "Moya" */;
+			productName = Moya;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

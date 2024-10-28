@@ -6,53 +6,50 @@
 //
 
 import Foundation
+import Moya
 
-public final class NetworkManager: Sendable {
+public protocol Networkable {
+    var provider: MoyaProvider<API> { get }
     
-    public static let shared = NetworkManager()
+    func fetchHeroes<T: Codable>(completion: @escaping (Result<T, Error>) -> Void)
+    func fetchHeroImage(for image: String, completion: @escaping (Result<Data, Error>) -> Void)
+}
+
+public final class NetworkManager: Networkable {
     
-    public func fetchHeroes<T: Codable>(completion: @escaping @Sendable (Result<T, Error>) -> Void) {
-        request(ApiTarget.getHeroes, completion: completion)
+    public var provider = MoyaProvider<API>()
+    
+    nonisolated(unsafe) public static let shared = NetworkManager()
+    
+    public func fetchHeroes<T: Codable>(completion: @escaping (Result<T, Error>) -> Void) {
+        moyaRequest(API.getHeroes, completion: completion)
     }
     
-    public func fetchHeroImage(for image: String, completion: @escaping @Sendable (Result<Data, Error>) -> Void) {
-        request(ApiTarget.getHeroImage(imageName: image), completion: completion)
+    public func fetchHeroImage(for image: String, completion: @escaping (Result<Data, Error>) -> Void) {
+        moyaRequest(API.getHeroImage(imageName: image), completion: completion)
     }
+}
+
+extension NetworkManager {
     
-    private func request<T: Codable>(_ target: ApiTargetProtocol, completion: @escaping @Sendable (Result<T, Error>) -> Void) {
-        guard let url = URL(string: target.baseUrl)?.appendingPathComponent(target.path) else {
-            completion(.failure(NetworkError.invalidURL))
-            return
-        }
-        print("fetching")
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = target.method.rawValue
-        
-        URLSession.shared.dataTask(with: request) { data, response, error in
-            guard error == nil else {
-                completion(.failure(NetworkError.invalidResponse))
-                return
-            }
-            
-            guard let response = response as? HTTPURLResponse, (200..<299).contains(response.statusCode) else {
-                completion(.failure(NetworkError.invalidResponse))
-                return
-            }
-            
-            if let data {
+    private func moyaRequest<T: Codable>(_ target: API, completion: @escaping (Result<T, Error>) -> Void) {
+        provider.request(target) { result in
+            switch result {
+            case let .success(response):
                 do {
                     if T.self == Data.self {
-                        completion(.success(data as! T))
+                        completion(.success(response.data as! T))
                         return
                     }
                     
-                    let result = try JSONDecoder().decode(T.self, from: data)
+                    let result = try JSONDecoder().decode(T.self, from: response.data)
                     completion(.success(result))
                 } catch {
                     completion(.failure(NetworkError.dataConversionFailure))
                 }
+            case .failure(_):
+                completion(.failure(NetworkError.invalidResponse))
             }
-        }.resume()
+        }
     }
 }

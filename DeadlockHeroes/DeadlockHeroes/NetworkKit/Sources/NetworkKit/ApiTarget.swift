@@ -6,13 +6,7 @@
 //
 
 import Foundation
-
-public protocol ApiTargetProtocol {
-    var baseUrl: String { get }
-    var path: String { get }
-    var method: HttpMethod { get }
-    var headers: [String: String]? { get }
-}
+import Moya
 
 public enum HttpMethod: String {
     case get = "GET"
@@ -21,17 +15,21 @@ public enum HttpMethod: String {
     case delete = "DELETE"
 }
 
-public enum ApiTarget: ApiTargetProtocol {
-    
+public enum API {
     case getHeroes
     case getHeroImage(imageName: String)
+}
+
+extension API: TargetType {
     
-    public var baseUrl: String {
+    public var baseURL: URL {
         switch self {
         case .getHeroes:
-            return "https://assets.deadlock-api.com"
-        case .getHeroImage(let imagePath):
-            return imagePath
+            guard let url = URL(string: "https://assets.deadlock-api.com") else { fatalError() }
+            return url
+        case .getHeroImage(let image):
+            guard let url = URL(string: image) else { fatalError() }
+            return url
         }
     }
     
@@ -44,7 +42,7 @@ public enum ApiTarget: ApiTargetProtocol {
         }
     }
     
-    public var method: HttpMethod {
+    public var method: Moya.Method {
         switch self {
         case .getHeroes:
             return .get
@@ -53,12 +51,15 @@ public enum ApiTarget: ApiTargetProtocol {
         }
     }
     
-    public var headers: [String : String]? {
-        switch self {
-        case .getHeroes:
-            return nil
-        case .getHeroImage:
-            return nil
-        }
+    public var task: Task {
+        return .requestPlain
+    }
+    
+    public var headers: [String: String]? {
+        return nil
+    }
+    
+    public var sampleData: Data {
+        return Data()
     }
 }
