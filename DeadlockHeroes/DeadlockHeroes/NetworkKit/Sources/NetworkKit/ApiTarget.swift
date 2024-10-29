@@ -21,16 +21,17 @@ public enum API {
 }
 
 extension API: TargetType {
-    
+
     public var baseURL: URL {
         switch self {
         case .getHeroes:
             return URL(string: "https://assets.deadlock-api.com")!
         case .getHeroImage(let image):
-            return URL(string: image) ?? URL(string: "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png")!
+            return URL(string: image) ??
+                URL(string: "https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png")!
         }
     }
-    
+
     public var path: String {
         switch self {
         case .getHeroes:
@@ -39,7 +40,7 @@ extension API: TargetType {
             return ""
         }
     }
-    
+
     public var method: Moya.Method {
         switch self {
         case .getHeroes:
@@ -48,15 +49,15 @@ extension API: TargetType {
             return .get
         }
     }
-    
+
     public var task: Task {
         return .requestPlain
     }
-    
+
     public var headers: [String: String]? {
         return nil
     }
-    
+
     public var sampleData: Data {
         return Data()
     }

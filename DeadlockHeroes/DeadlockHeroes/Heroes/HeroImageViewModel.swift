@@ -9,10 +9,10 @@ import Foundation
 import NetworkKit
 import UIKit
 
-protocol HeroesImageViewModelDelegate {
+protocol HeroesImageViewModelDelegate: AnyObject {
     var image: UIImage? { get set }
     var didFetchedHeroImage: ((UIImage) -> Void)? { get set }
-    
+
     func fetchHeroImage(for imageName: String)
 }
 
@@ -22,9 +22,9 @@ final class HeroesImageViewModel: HeroesImageViewModelDelegate {
             didFetchedHeroImage?(image ?? UIImage(named: "placeholder")!)
         }
     }
-    
+
     var didFetchedHeroImage: ((UIImage) -> Void)?
-    
+
     func fetchHeroImage(for imageName: String) {
         NetworkManager.shared.fetchHeroImage(for: imageName) { result in
             switch result {

@@ -9,13 +9,13 @@ import Foundation
 
 protocol HeroInfoRouterProtocol {
     var view: HeroInfoViewController? { get set }
-    
+
     func navigateToHeroes()
 }
 
 final class HeroInfoRouter: HeroInfoRouterProtocol {
     var view: HeroInfoViewController?
-    
+
     func navigateToHeroes() {
         view?.navigationController?.popViewController(animated: true)
     }

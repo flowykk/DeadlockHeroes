@@ -1,0 +1,16 @@
+opt_in_rules:
+    - force_cast
+line_length: 120
+
+line_length:
+    excluded:
+        - "AppDelegate.swift"
+
+included:
+  - "DeadlockHeroes"
+  - "*/*.swift"
+  - "*/**/*.swift"
+excluded:
+  - "*.yml"
+  - "*.xcodeproj"
+  - ".git"

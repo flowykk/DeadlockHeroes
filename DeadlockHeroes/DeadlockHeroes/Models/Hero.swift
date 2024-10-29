@@ -21,7 +21,8 @@ struct Hero: Codable {
         case name, description
         case images
     }
-    
+
+    // swiftlint:disable line_length
     static var testHero = Hero(
         id: 1,
         className: "Sniper",
@@ -33,6 +34,7 @@ struct Hero: Codable {
         ),
         images: nil
     )
+    // swiftlint:enable line_length
 }
 
 // MARK: - Description
